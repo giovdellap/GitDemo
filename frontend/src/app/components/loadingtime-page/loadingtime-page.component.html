@@ -1,0 +1,26 @@
+<div class="filter-container">
+  <mat-form-field class="formField">
+    <mat-label>Select x axis</mat-label>
+    <mat-select [formControl]="optionControl">
+      @for (option of options; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <div class="card-container">
+    <mat-card class="card"appearance="outlined">
+      <mat-card-content>
+        {{insightObservable | async}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="graph-container">
+  <figure id="scatter"></figure>
+  <div class="pcatitle" *ngIf="titleObservable | async">
+    PRINCIPAL COMPONENT ANALYSIS
+  </div>
+  <figure id="pcagraph"></figure>
+</div>
+

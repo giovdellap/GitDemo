@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="flter-row">
+    <button mat-raised-button class="button-class" [disabled]="multipleObservable | async" (click)="changeMultiple()">Multiple Charts</button>
+    <button mat-raised-button class="button-class" [disabled]="!(multipleObservable | async)"(click)="changeMultiple()">Single Chart</button>
+  </div>
+  <ng-container *ngIf="(multipleObservable| async)">
+    <app-multiple-weekday ></app-multiple-weekday>
+  </ng-container>
+  <ng-container *ngIf="!(multipleObservable| async)">
+    <app-single-weekday ></app-single-weekday>
+  </ng-container>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="button-container">
+    <div class="button-row">
+      <button mat-raised-button class="button-class" (click)="setupBoth()">Setup Both DB</button>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button class="button-class" (click)="initializeDB('cassandra')">Initialize Cassandra</button>
+      <p class="status">{{status.initialize.cassandra}}</p>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button class="button-class" (click)="initializeDB('influx')">Initialize InfluxDB</button>
+      <p class="status">{{status.initialize.influx}}</p>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button class="button-class" (click)="insertOneMonth('cassandra')">Insert One month Cassandra</button>
+      <p class="status">{{status.populate.cassandra}}</p>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button class="button-class" (click)="insertOneMonth('influx')">Insert One month InfluxDB</button>
+      <p class="status">{{status.populate.influx}}</p>
+    </div>
+  </div>
+</div>

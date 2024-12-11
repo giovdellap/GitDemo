@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="filter-row">
+    <div class="filter-container">
+      <mat-form-field class="formField">
+        <mat-label>Select X Axis:</mat-label>
+        <mat-select [formControl]="xAxisControl" [(value)]="xAxis">
+          @for (option of xAxisOptions; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="button-container">
+      <button mat-raised-button class="button-class" [disabled]="multipleObservable | async" (click)="changeMultiple()">VIEW BY MODEL</button>
+    <button mat-raised-button class="button-class" [disabled]="notMultipleObservable | async"(click)="changeMultiple()">ALL MODELS</button>
+    </div>
+    <div class="card-container">
+      <mat-card class="card"appearance="outlined">
+        <mat-card-content>
+          TOKENS RANGE: 10000-80000
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+  <ng-container *ngIf="(multipleObservable| async)">
+    <app-multiple-linechart ></app-multiple-linechart>
+  </ng-container>
+  <ng-container *ngIf="(notMultipleObservable| async)">
+    <app-single-linechart ></app-single-linechart>
+  </ng-container>
+</div>

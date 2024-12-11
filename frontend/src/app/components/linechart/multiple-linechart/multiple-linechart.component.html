@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="graph-row">
+    <div class="graph-container">
+      <div class="title-container">{{models[0]}}</div>
+      <div [innerHTML]="svgArray[0] | noSanitize">{{svgArray[0]}}</div>
+    </div>
+    <div class="graph-container">
+      <div class="title-container">{{models[1]}}</div>
+      <div [innerHTML]="svgArray[1] | noSanitize">{{svgArray[1]}}</div>
+    </div>
+  </div>
+  <div class="graph-row">
+    <div class="graph-container">
+      <div class="title-container">{{models[2]}}</div>
+      <div [innerHTML]="svgArray[2] | noSanitize">{{svgArray[2]}}</div>
+    </div>
+    <div class="graph-container">
+      <div class="title-container">{{models[3]}}</div>
+      <div [innerHTML]="svgArray[3] | noSanitize">{{svgArray[3]}}</div>
+    </div>
+  </div>
+</div>

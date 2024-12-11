@@ -1,0 +1,50 @@
+name: bigdata-influx
+services:
+  backend:
+    container_name: bigdata-be-influx
+    restart: always
+    ports:
+      - 5001:5001
+    build:
+      context: ./backend-node
+      dockerfile: ./Dockerfile
+    environment:
+      DB: "influx"
+    volumes:
+      - ./backend-node:/code
+    networks:
+      - main
+  
+  frontend:
+    container_name: bigdata-fe-influx
+    restart: always
+    ports:
+      - 4200:4200
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+
+  influxdb:
+    image: influxdb:latest
+    container_name: bigdata-influxdb
+    volumes:
+      - influxdb-data:/var/lib/influxdb2:rw
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=giovdellap
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=kUERQvP1fV7Tra0oo1CbaRIsqHgixJS_qgp5H02zmXOq3dtU0s8O-CGCecPMoWMo1riv5hS3WsJHHr
+    ports:
+      - 8086:8086
+    restart: unless-stopped
+    networks:
+      - main
+
+volumes:
+  influxdb-data:
+
+networks:
+  main:
+    driver: bridge

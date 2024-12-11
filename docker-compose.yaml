@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+
+  backend:
+    container_name: backend-bigdata
+    restart: always
+    ports:
+      - 5001:5001
+    build:
+      context: ./backend-node
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./backend-node:/code
+    networks:
+      - main
+
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - 9042:9042
+    environment:
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    networks:
+      - main
+
+  cassandra-web:
+    image: ipushc/cassandra-web:latest
+    container_name: cassandra-web
+    ports:
+      - 8083:8083
+    environment:
+      - CASSANDRA_HOST=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_USERNAME=admin
+      - CASSANDRA_PASSWORD=admin
+    restart: always
+    depends_on:
+      - cassandra
+    networks:
+      - main
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    volumes:
+      - influxdb-data:/var/lib/influxdb2:rw
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=giovdellap
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=kUERQvP1fV7Tra0oo1CbaRIsqHgixJS_qgp5H02zmXOq3dtU0s8O-CGCecPMoWMo1riv5hS3WsJHHr
+    ports:
+      - 8086:8086
+    restart: unless-stopped
+    networks:
+      - main
+
+volumes:
+  cassandra-data:
+  influxdb-data:
+
+networks:
+  main:
+    driver: bridge

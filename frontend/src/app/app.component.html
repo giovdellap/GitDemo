@@ -1,0 +1,187 @@
+<div class="container">
+  <div class="button-row">
+    <div class="main-buttons">
+      <button mat-raised-button (click)="clickButtonRow(true)">GENERATIONS/SATISFACTION</button>
+      <button mat-raised-button (click)="clickButtonRow(false)">LOADING TIME</button>
+    </div>
+    <div class="admin-buttons">
+      <button mat-raised-button routerLink = "/setup">SETUP</button>
+      <mat-form-field class="formField">
+        <mat-label></mat-label>
+        <mat-select [formControl]="dbControl" [(value)]="db">
+          @for (option of options; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+
+
+  </div>
+  <div class="card-row" *ngIf="(subrowObservable | async) && (subrowGenObservable | async)">
+    <mat-card class="card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">Scatterplot + dimension</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="content-container">
+        <div class="content-column-left">
+          <b>X Axis: </b>
+          <ul>
+            <li>Tokens</li>
+            <li>WLI</li>
+            <li>Temperaure</li>
+            <li>Presence Penalty</li>
+          </ul>
+        </div>
+        <div class="content-column">
+          <b>Y Axis: </b>
+          <ul>
+            <li>Generations</li>
+            <li>Satisfaction</li>
+          </ul>
+        </div>
+        <div class="content-column-right">
+          <b>Filters: </b>
+          <ul>
+            <li>By model</li>
+          </ul>
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-raised-button (click)="onClickPath('/scatterplot')">VIEW</button>
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">WLI Boxplot</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="content-container">
+        <div class="content-column-left">
+          <b>X Axis: </b>
+          <br>
+          <br>
+          WLI
+        </div>
+        <div class="content-column">
+          <b>Y Axis: </b>
+          <ul>
+            <li>Generations</li>
+            <li>Satisfaction</li>
+          </ul>
+        </div>
+        <div class="content-column-right">
+          <b>Filters: </b>
+          <ul>
+            <li>By model</li>
+          </ul>
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-raised-button (click)="onClickPath('/wliboxplots')">VIEW</button>
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">Tokens Boxplot</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="content-container">
+        <div class="content-column-left">
+          <b>X Axis: </b>
+          <ul>
+            <li>Generations</li>
+            <li>Satisfaction</li>
+          </ul>
+        </div>
+        <div class="content-column">
+          <b>Y Axis: </b>
+          <br>
+          <br>
+          Tokens
+
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-raised-button (click)="onClickPath('/linecharts')">VIEW</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  <div class="card-row" *ngIf="(subrowObservable | async) && !(subrowGenObservable | async)">
+    <mat-card class="card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">Scatterplot + PCA</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="content-container">
+        <div class="content-column-left">
+          <b>X Axis: </b>
+          <ul>
+            <li>Input Tokens</li>
+            <li>Total Tokens</li>
+            <li>Stream Messages</li>
+            <li>Input Dimension</li>
+          </ul>
+        </div>
+        <div class="content-column">
+          <b>Y Axis: </b>
+          <br>
+          <br>
+          Loading Time
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-raised-button (click)="onClickPath('/loadingtime')">VIEW</button>
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">Weekday Scatterplot</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="content-container">
+        <div class="content-column-left">
+          <b>X Axis: </b>
+          <br>
+          <br>
+          Time of the day
+        </div>
+        <div class="content-column">
+          <b>Y Axis: </b>
+          <br>
+          <br>
+          Loading Time
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-raised-button (click)="onClickPath('/weekday/scatterplots')">VIEW</button>
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="card" appearance="outlined">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">Weekday Linechart</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="content-container">
+        <div class="content-column-left">
+          <b>X Axis: </b>
+          <br>
+          <br>
+          Time of the day
+        </div>
+        <div class="content-column">
+          <b>Y Axis: </b>
+          <br>
+          <br>
+          Loading Time
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-raised-button (click)="onClickPath('/weekday/linechart')">VIEW</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+
+<router-outlet />
